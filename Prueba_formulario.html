@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<meta http-equiv="Content-Type" content="text/html"; charset="UTF-8" />
+    <title>Formulario Base</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Formulario de Contacto</h2>
+    <form id="contactForm" onsubmit="return validateForm()">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Correo Electrónico</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <div id="errorMessages" class="error"></div>
+</div>
+
+<script>
+    function validateForm() {
+        let valid = true;
+        let errorMessages = '';
+
+        // Obtener los valores del formulario
+        let name = document.getElementById('name').value;
+        let email = document.getElementById('email').value;
+        let message = document.getElementById('message').value;
+
+        // Validar el nombre
+        if (name === '') {
+            valid = false;
+            errorMessages += 'El nombre es obligatorio.<br>';
+        }
+
+        // Validar el correo electrónico
+        let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (email === '' || !emailPattern.test(email)) {
+            valid = false;
+            errorMessages += 'Por favor ingrese un correo electrónico válido.<br>';
+        }
+
+        // Validar el mensaje
+        if (message === '') {
+            valid = false;
+            errorMessages += 'El mensaje no puede estar vacío.<br>';
+        }
+
+        // Mostrar los errores
+        document.getElementById('errorMessages').innerHTML = errorMessages;
+
+        // Retornar si el formulario es válido o no
+        return valid;
+    }
+</script>
+
+</body>
+</html>
